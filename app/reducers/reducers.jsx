@@ -1,9 +1,18 @@
 
+export var isLoadingReducer = (state = false, action) => {
+  switch (action.type) {
+    case 'TOGGLE_SHOW_LOADER':
+      return !state;
+    default:
+      return state;
+  }
+};
+
 export let locationReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'SET_LOCATION':
+    case 'UPDATE_LOCATION':
       return {
-        ...action
+        ...action.location
       };
     default:
       return state;
@@ -12,9 +21,9 @@ export let locationReducer = (state = {}, action) => {
 
 export let popularityReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'SET_LOCATION':
+    case 'UPDATE_POPULARITY':
       return {
-        ...action
+        ...action.popularity
       };
     default:
       return state;
@@ -26,7 +35,7 @@ export let restaurantsReducer = (state = [], action) => {
     case 'ADD_RESTAURANTS':
       return [
         ...state,
-        ...action.todos
+        ...action.restaurants
       ];
     default:
       return state;

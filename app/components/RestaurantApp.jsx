@@ -1,22 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import * as api from '../api/ZomatoAPI'
+import * as actions from '../actions/actions'
+import * as api from '../api/RestaurantsAPI'
+
+
+import Location from './Location'
+import Popularity from './Popularity'
+import RestaurantList from './RestaurantList'
+
 
 class RestaurantApp extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      apiResponse: ''
-    };
-
     this.loadNearbyRestaurants = this.loadNearbyRestaurants.bind(this);
   }
 
   componentDidMount() {
-    let {dispatch} = this.props;
+    let { dispatch } = this.props;
     // dispatch(actions.isLoadingAction());
     this.getLocation();
   }
@@ -31,8 +34,17 @@ class RestaurantApp extends Component {
 
 
   loadNearbyRestaurants(position) {
-    let response = api.getNearbyRestaurants(position).then(response => {
-      this.setState({apiResponse: JSON.stringify(response)});
+
+    let { dispatch } = this.props;
+
+    api.getNearbyRestaurants(position).then(response => {
+      console.log(response);
+      dispatch(actions.updateLocation(response.location));
+      dispatch(actions.updatePopularity(response.popularity));
+      dispatch(actions.addRestaurants(response.nearby_restaurants));
+
+    }).catch(err => {
+      console.log(err);
     });
 
   }
@@ -57,12 +69,11 @@ class RestaurantApp extends Component {
 
   render() {
 
-    let { apiResponse } = this.state;
-
     return (
       <React.Fragment>
-        <h1>Nearby Restaurants</h1>
-        <pre>{apiResponse}</pre>
+        <Location/>
+        <Popularity/>
+        <RestaurantList/>
       </React.Fragment>
     )
   }
