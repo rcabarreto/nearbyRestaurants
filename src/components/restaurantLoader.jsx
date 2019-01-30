@@ -1,28 +1,29 @@
+import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import React, { Component } from 'react'
-import {connect} from "react-redux";
+import LoaderImage from '../images/ajax-loader-white.gif'
 
-class restaurantLoader extends Component {
-  render() {
+const restaurantLoader = (props) => {
+  const { isLoading } = props
 
-    let {isLoading} = this.props;
-
-    if (!isLoading) {
-      return null;
-    }
-
-    return (
-      <main id="loader" role="loader" className="inner cover">
-        <p id="loader" className="lead"><img src={require('../images/ajax-loader-white.gif')}/></p>
-      </main>
-    )
+  if (!isLoading) {
+    return null
   }
+
+  return (
+    <main id="loader" className="inner cover">
+      <p id="loader" className="lead"><img alt="loader" src={LoaderImage} /></p>
+    </main>
+  )
+}
+
+restaurantLoader.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
 }
 
 export default connect(
-  (state) => {
-    return {
-      isLoading: state.isLoading
-    }
-  }
-)(restaurantLoader);
+  state => ({
+    isLoading: state.isLoading,
+  }),
+)(restaurantLoader)

@@ -1,7 +1,8 @@
-import { combineReducers, createStore, compose } from 'redux'
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 import { isLoadingReducer, locationReducer, popularityReducer, restaurantsReducer } from 'reducers/reducers'
 
-export var configure = (initialState = {}) => {
+export default (initialState = {}) => {
   const reducer = combineReducers({
     isLoading: isLoadingReducer,
     location: locationReducer,
@@ -10,6 +11,7 @@ export var configure = (initialState = {}) => {
   })
 
   const store = createStore(reducer, initialState, compose(
+    applyMiddleware(thunkMiddleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f,
   ))
 

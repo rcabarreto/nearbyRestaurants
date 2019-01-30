@@ -1,36 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import PropTypes from 'prop-types'
 import * as api from '../api/RestaurantsAPI'
 
 import Restaurant from './Restaurant'
 
 class RestaurantList extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
   render() {
+    const { restaurants } = this.props
 
-    let { restaurants } = this.props;
+    const renderRestaurants = () => {
+      const filteredRestaurants = api.filterRestaurants(restaurants, '')
 
-    let renderRestaurants = () => {
+      if (filteredRestaurants.length === 0) { return <p className="message">No restaurants nearby</p> }
 
-      let filteredRestaurants = api.filterRestaurants(restaurants, '');
 
-      if (filteredRestaurants.length === 0) {
-        return (
-          <p className="message">No restaurants nearby</p>
-        );
-      }
-
-      return filteredRestaurants.map((restaurant) => {
-        return (
-          <Restaurant key={restaurant.restaurant.id} {...restaurant.restaurant}/>
-        );
-      });
-    };
+      return filteredRestaurants.map(restaurant => (
+        <Restaurant key={restaurant.restaurant.id} {...restaurant.restaurant} />
+      ))
+    }
 
     return (
       <div className="album py-5 bg-light">
@@ -44,9 +32,12 @@ class RestaurantList extends Component {
       </div>
     )
   }
-
 }
 
-export default connect((state) => { return {
-  restaurants: state.restaurants
-} })(RestaurantList);
+RestaurantList.propTypes = {
+  restaurants: PropTypes.node.isRequired,
+}
+
+export default connect(state => ({
+  restaurants: state.restaurants,
+}))(RestaurantList)

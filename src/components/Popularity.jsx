@@ -1,19 +1,21 @@
-import React  from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 const Popularity = (props) => {
-
-  let {popularity, dispatch} = props;
+  const { popularity } = props
 
   return (
     <h4>Popularity: {popularity.popularity}, Night life index: {popularity.nightlife_index}</h4>
   )
-};
+}
+
+Popularity.propTypes = {
+  popularity: PropTypes.node.isRequired,
+}
 
 export default connect(
-  (state) => {
-    return {
-      popularity: state.popularity
-    };
-  }
-)(Popularity);
+  state => ({
+    popularity: state.popularity,
+  }),
+)(Popularity)
