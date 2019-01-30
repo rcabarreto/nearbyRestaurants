@@ -1,4 +1,4 @@
-# Nearby Restaurants app - Skip Challenge
+# Nearby Restaurants app
 
 This is a small app that takes que geolocation from your web browser and fetches information from a API to show restaurants near you.
 
@@ -8,11 +8,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You need to have Node installed to run this project, 
+You need to have Node installed to run this project.
 
 ````
 $ cd ~
-$ curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+$ curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
 $ sudo apt-get install nodejs
 ````
 
@@ -24,7 +24,7 @@ $ node -v
 
 ````
 Output
-v8.0.0
+v10.X.X
 ````
 
 ### Installing
@@ -32,8 +32,8 @@ v8.0.0
 First, download the project, then cd into the project, install dependencies and start the application.
 
 ````
-$ git glone https://github.com/rcabarreto/skipChallenge.git skipChallenge/
-$ cd skipChallenge/
+$ git glone https://github.com/rcabarreto/nearbyRestaurants.git nearbyRestaurants/
+$ cd nearbyRestaurants/
 $ npm install
 $ npm start
 ````
